@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Arisan;
 use App\Models\DetailKelompokArisan;
 use App\Models\Pembayaran;
-use App\Models\User;
 
-
-class Peserta extends Model
+class KelompokArisan extends Model
 {
-    protected $fillable = ['nm_peserta', 'alamat', 'no_tlp', 'stts', 'sttsPeserta', 'email'];
+    protected $fillable = ['nama_kelompok', 'id_arisan', 'keterangan', 'harga', 'status', 'slot'];
     use HasFactory;
 
+    public function arisan()
+    {
+        return $this->belongsTo(Arisan::class);
+    }
     public function detail_kelompok_arisan()
     {
         return $this->hasMany(DetailKelompokArisan::class);
@@ -25,9 +28,5 @@ class Peserta extends Model
     public function detail()
     {
         return $this->hasMany(DetailKelompokArisan::class);
-    }
-    public function user()
-    {
-        return $this->hasOne(User::class);
     }
 }
